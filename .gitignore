@@ -6,4 +6,5 @@ __pycache__/
 data/raw/*.csv
 data/processed/*.csv
 data/processed/*.pkl
-models/trained/*.pkl
+# Allow the lightweight placeholder model
+!models/trained/cynet_model.pkl

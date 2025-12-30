@@ -40,26 +40,30 @@ def predict_next_4_hours(model, tiles_gdf, reference_time=None):
     ]
 
     # Get predictions from model
-    # Note: This is a placeholder interface - actual Cynet API may differ
-    # The implementation will need to be adapted based on Cynet's actual prediction method
     tile_risks = {}
 
     try:
-        # Attempt to use Cynet's prediction interface
-        # This may need adjustment based on actual Cynet API
-        predictions = model.predict(prediction_hours)
+        # Check if this is the GuardianRouteModel (placeholder)
+        if hasattr(model, 'model_type') and model.model_type == 'PlaceholderModel':
+            # Use placeholder model interface
+            tile_ids = tiles_gdf['tile_id'].tolist()
+            tile_risks = model.predict(tile_ids, reference_time)
+        else:
+            # Attempt to use Cynet's prediction interface
+            # This may need adjustment based on actual Cynet API
+            predictions = model.predict(prediction_hours)
 
-        # Extract max probability per tile across 4 hours
-        for tile_id in tiles_gdf['tile_id']:
-            if tile_id in predictions:
-                tile_risks[tile_id] = max(predictions[tile_id])
-            else:
-                # Cold start: tile not in training data
-                tile_risks[tile_id] = 0.0
+            # Extract max probability per tile across 4 hours
+            for tile_id in tiles_gdf['tile_id']:
+                if tile_id in predictions:
+                    tile_risks[tile_id] = max(predictions[tile_id])
+                else:
+                    # Cold start: tile not in training data
+                    tile_risks[tile_id] = 0.0
 
-    except AttributeError:
+    except (AttributeError, TypeError) as e:
         # Fallback if model doesn't have predict method
-        print("Warning: Model prediction interface not available. Using dummy predictions.")
+        print(f"Warning: Model prediction failed ({e}). Using dummy predictions.")
         # Generate random predictions for testing
         np.random.seed(42)
         for tile_id in tiles_gdf['tile_id']:
