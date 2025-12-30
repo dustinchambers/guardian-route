@@ -1,0 +1,38 @@
+# Guardian Route MVP - Python Dependencies
+
+# Core data manipulation
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Geospatial libraries
+geopandas>=0.14.0
+shapely>=2.0.0
+pyproj>=3.6.0  # Coordinate transformations
+
+# OSMnx for street network routing
+osmnx>=1.9.0
+networkx>=3.0
+
+# Cynet for predictive modeling
+cynet>=0.1.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.13.0
+folium>=0.15.0  # Interactive maps in Jupyter
+
+# Model persistence
+joblib>=1.3.0
+scikit-learn>=1.3.0  # For potential fallback models
+
+# HTTP requests
+requests>=2.31.0
+
+# Jupyter notebook
+jupyter>=1.0.0
+notebook>=7.0.0
+ipykernel>=6.25.0
+
+# Utilities
+python-dateutil>=2.8.0
+tqdm>=4.66.0  # Progress bars
